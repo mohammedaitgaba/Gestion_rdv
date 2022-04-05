@@ -3,11 +3,11 @@
         <h1 class="wlcm">Welcome back dear client</h1>
     <div class="overlay">
       <div class="image"><img src="../../images/ahmed.jpg" alt=""></div>
-        <form class="login_form">
+        <form class="login_form" @submit.prevent="check_user">
             <label class="form_header"> Please entre your id  </label>
-            <input  type="text" placeholder="Your id">
-            <button>Sign in</button>
-            <a href="">Don't have account</a>
+            <input class="filler" type="text" placeholder="Your ID" v-model="form.id" />
+            <button type="submit">Sign in</button>
+            <a href="./Sign_up">Don't have account</a>
         </form>
     </div>
 
@@ -15,17 +15,112 @@
     
   </div>
 </template>
+
+
+
 <script>
+import router from "@/router"
+import Cookies from 'js-cookie'
+
+const formState = {
+    id:""
+}
 export default {
-    
+    name : "Sign_in",
+    data() {
+        return {form :formState}
+    },
+    created() {
+        if (Cookies.get('id')) {
+            router.push('/')
+        }else{
+            Cookies.remove('id')
+        }
+    },
+    methods: {
+        
+        // async testapi(){
+        //     let response = await fetch ('http://localhost/Gestion_rndv/breif/backend/user/check_user')
+        //     this.list = await response.json();
+        //     console.log(list)
+        // },
+
+        check_user(){
+            
+            // check type of user
+            let id =formState.id 
+            let check = id.slice(0,2)
+            if (check === "cl" ||check === "CL") {
+                fetch("http://localhost/Gestion_rndv/breif/backend/user/check_user", {
+                    method: 'POST',
+                    body: JSON.stringify(this.form),
+
+                }).then(res => {
+                    if(res.status == 200)
+                    {res.json()
+                        .then(out => {
+                            let data = out.data;
+                            Cookies.set('id',out.data.id)
+                            
+                            if(data) router.go('/');
+                        })
+                    }})
+
+                // .then(out => {const x = out})
+                // .then(document.cookie = 'name= med ')
+
+                
+            }else{
+                fetch("http://localhost/Gestion_rndv/breif/backend/Admin/check_admin", {
+                    method: 'POST',
+                    body: JSON.stringify(this.form)
+                }).then(res => {
+                    if(res.status == 200)
+                    {res.json()
+                        .then(out => {
+                            let data = out.data;
+                           Cookies.set('id',out.data.id)
+                            if(data) router.push('admin');
+                        })
+                    }})
+            
+            }
+
+        },
+        
+    //     setCookie(name,value,days) {
+    //         var expires = "";
+    //         if (days) {
+    //         var date = new Date();
+    //         date.setTime(date.getTime() + (days*24*60*60*1000));
+    //         expires = "; expires=" + date.toUTCString();
+    // }
+    // document.cookie = name + "=" + (value || "")  + expires + "; path=/";
+// }
+        
+    },
+   
+    // created() {
+        //     alert("mmmmmm")
+    // },
+    // beforeCreate() {
+    //     alert("wwwww")
+    // },
+
 }
 </script>
+
+
+
+
 <style lang="css" scoped>
 *{
 
     box-sizing: border-box;
     margin: 0;
     padding: 0;
+    font-family: 'Exo', sans-serif;
+
 }
 body{
         background-color: white;
@@ -37,6 +132,8 @@ body{
     align-self: center;
     margin-bottom: 20px;
     margin-top: 20px;
+    font-size: 30px;
+    font-weight: 500;
     /* z-index: 10; */
 }
 /* .overlay{
@@ -81,6 +178,8 @@ img{
     overflow: hidden;
     width: 100%;
     height: 100%;
+    position: relative;
+    left: 40px;
 }
 .login_form{
    display: flex;
@@ -88,7 +187,7 @@ img{
     width: 350px;
     height: 100%;
     background-color: rgb(255, 255, 255);
-    background-color: #deddda57;
+    background-color: #d6daee91;
     justify-content: center;
     align-items: center;
     /* margin-top: 60px; */
@@ -160,6 +259,7 @@ img{
 }
 .login_form{
     margin-left: 0;
+    border-radius: 10px;
 }
 }
 

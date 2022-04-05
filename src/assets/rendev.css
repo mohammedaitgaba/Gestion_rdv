@@ -1,0 +1,39 @@
+.recent-orders{
+    margin-top: 2rem;
+    max-width: 90%;    margin-left: 5%;
+  
+  }
+  .recent-orders h2{
+    margin-bottom: 0.8rem;
+  }
+  .recent-orders table{
+    background:#fff;
+    width: 100%;
+    border-radius: 2rem ;
+    padding: 1.8rem ;
+    text-align: center;
+    box-shadow:0 2rem 3rem rgba(132,139,200,0.18);
+    transition: all 300ms ease;
+  
+  }
+  #dropdownMenuButton1{
+    color: black;
+  }
+  .recent-orders table:hover {
+    box-shadow:none;
+  }
+  table tbody tr{
+    height: 2.8rem;
+    border-bottom: 1px solid rgba(132, 139, 200, 0.18);
+    color: #677483;
+  }
+  table tbody tr:last-child td{
+    border: none;
+  }
+  
+    .recent-orders a{
+      text-align: center;
+      display: block;
+      margin: 1rem auto;
+      color:#7380ec;
+    }

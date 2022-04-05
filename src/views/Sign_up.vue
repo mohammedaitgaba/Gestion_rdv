@@ -2,6 +2,7 @@
     <div class="container">
         <h1 class="wlcm">Welcome to your architecture cabinet</h1>
         <div class="overlay">
+            
             <form class="login_form" @submit.prevent="creat_acc">
                 <label class="form_header">Please fill the info below</label>
                 <input class="filler" type="text" placeholder="full name" v-model="form.full_name" />
@@ -14,28 +15,25 @@
 
             </form>
             <div class="image">
-                <img src="../../images/background_signup.jpg" alt />
+                <img src="../../images/background_signup.jpg"  />
             </div>
             <!-- <p>{{out}}</p> -->
         </div>
     </div>
 </template>
-<script>
+<script>import router from "@/router"
+
 const initialFormState = {
     full_name: "",
     birthday: "",
     CIN: "",
     Job: ""
 }
+
 export default {
     name: "Sign_up",
     data() {
-        return { form: initialFormState ,
-        // out:"ww"
-        }
-        // return {
-        //     form: { full_name: "", birthday: "", CIN: "", Job: "" },
-        // }
+        return { form: initialFormState ,}
     },
     methods: {
         creat_acc() {
@@ -43,17 +41,25 @@ export default {
                 method: 'POST',
                 body: JSON.stringify(this.form),
             }).then(res => res.json())
-            .then(zed => alert("This is your id for login : "+zed.data.id))
+            .then(user => this.showAlert("This is your id for login :<br/> "+user.data.id+" <br/>save it!!"))
+            router.push('sign_in')
             this.form = initialFormState;
-        }
+        },
+        showAlert(param) {
+            // Use sweetalert2
+      this.$swal(param);
+    },
     },
 }
 </script>
 <style lang="css" scoped>
+@import url('https://fonts.googleapis.com/css2?family=Exo:wght@400;500;600&display=swap');
 * {
     box-sizing: border-box;
     margin: 0;
     padding: 0;
+    font-family: 'Exo', sans-serif;
+
 }
 
 body {
@@ -66,6 +72,8 @@ body {
     margin-bottom: 20px;
     margin-top: 20px;
     font-size: 30px;
+    font-weight: 500;
+
     /* z-index: 10; */
 }
 /* .overlay{
@@ -129,11 +137,13 @@ img {
     mix-blend-mode: multiply; */
     border-bottom-left-radius: 20px;
     border-top-left-radius: 20px;
+    font-weight: 400;
+
 
 }
 .form_header {
     font-size: 24px;
-    margin-bottom: 25px;
+    margin-bottom: 10px;
 }
 .filler{
     width: 250px;
@@ -193,6 +203,7 @@ a:hover {
     }
     .login_form {
         margin-left: 0;
+        border-radius: 10px;
     }
 }
 </style>

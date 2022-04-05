@@ -4,32 +4,29 @@
       
     <div class="container">
         <div class="title"> Reserver</div>
-      <form>
+      <form @submit.prevent="add_res">
           <!-- name	date_rdv	sujet	creneau	id_client	 -->
         <div class="user-details">
          
           <div class="input-box">
               <span class="details">Sujet</span>
-            <input type="text" placeholder="taper votre haja" required />
+            <input type="text" placeholder="Sujet" required v-model="form.sujet"/>
           </div>
               <div class="input-box">
                 <span class="details">Date de Rendez-Vous</span>
-                <input type="date" placeholder="taper votre haja" required />
+                <input type="date" placeholder="taper votre haja" required v-model="form.date_rdv"/>
               </div>
           <div class="input-box">
-            <span class="details">Creneau</span>
-            <select>
-                <option>10h à 10:30h</option>
-                <option>11 h à 11:30h</option>
-                <option>14 h à 14:30h</option>
-                <option>15 h à 15:30h</option>
-                <option>16 h à 16:30h</option>
+            <span class="details" >Creneau</span>
+            <select v-model="form.creneau">
+                <option value="10h à 10:30h" >10h à 10:30h</option>
+                <option value="11 h à 11:30h">11 h à 11:30h</option>
+                <option value="14 h à 14:30h">14 h à 14:30h</option>
+                <option value="15 h à 15:30h">15 h à 15:30h</option>
+                <option value="16 h à 16:30h">16 h à 16:30h</option>
             </select>
-          </div>
-          <!-- <div class="input-box">
-            <span class="details">Full Name</span>
-            <input type="text" placeholder="taper votre haja" required />
-          </div> -->
+          </div> 
+          
         </div>
         <div class="button">
           <input type="submit" value="Reserver" />
@@ -38,15 +35,42 @@
     </div>
 
   </div>
+  
 </template>
 <script>
+import Cookies from 'js-cookie'
+
+
     import Header from '../components/Header.vue'
+      const forminfo = { 
+          sujet:"",
+          date_rdv:"",
+          creneau:"",
+       }
+  let id_client=Cookies.get('id')
     export default {
-  name: 'HomeView',
   components: {
     // HelloWorld,
     Header
+  },
+
+
+  data(){
+    return {
+      form:{forminfo,id_client} 
+    }
+  },
+  methods: {
+    add_res(){
+      fetch("http://localhost/Gestion_rndv/breif/backend/Rendez/add_rendev",
+      {
+        method : "POST",
+        body : JSON.stringify(this.form)
+      }).then(res => res.json()).then(out => console.log(out.data))
+      
+    }
   }
+
 }
 </script>
 <style lang="css" scoped>
@@ -68,7 +92,7 @@
   background: #eee;
 }
 .container{
-  margin-top: 30px;
+  margin-top: 18px;
 max-width: 700px;
 width :100%;
 background: #fff;
@@ -97,7 +121,7 @@ border-radius:5px;
 }
 form .user-details .input-box{
     font-size: 18px;
-    margin-bottom: 40px;
+    margin-bottom: 19px;
     width: calc(100% / 2 +50%);
 }
 form .user-details .input-box .details{
@@ -121,7 +145,7 @@ transition: all 0.3s ease;
 }
 form .button{
     height: 45px;
-    margin: 45px 0;
+    margin: 20px 0;
 }
 form .button input{
 height: 56px;

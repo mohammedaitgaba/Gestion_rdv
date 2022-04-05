@@ -9,13 +9,13 @@
             <div class="collapse navbar-collapse" id="navbarNav">
             <ul class="navbar-nav">
                 <li class="nav-item">
-                <a class="nav-link active" aria-current="page" href="/Profile">Profile</a>
+                <a class="nav-link active" aria-current="page" href="/">Profile</a>
                 </li>
                 <li class="nav-item">
                 <a class="nav-link" href="/Rendez">Reserve</a>
                 </li>   
                 <li class="nav-item">
-                <a class="nav-link" href="/Sign_in">Log out</a>
+                <a class="nav-link" v-on:click="logout" href="/Sign_in">Log out</a>
                 </li>
             </ul>
             </div>
@@ -33,3 +33,18 @@
     justify-content: flex-end;
 }
 </style>
+<script>
+// import { remove } from '@vue/shared'
+import Cookies from 'js-cookie'
+
+export default {
+    
+methods: {
+    logout(){
+        Cookies.remove('id')
+    }
+},
+
+}
+
+</script>
