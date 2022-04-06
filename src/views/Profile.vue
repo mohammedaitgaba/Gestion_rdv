@@ -2,7 +2,6 @@
 <Header/>
     <div class="recent-orders">
   <h2>Appointment's table</h2>
-  <h2> {{id}} </h2>
   <table>
     <thead>
       <tr>
@@ -19,7 +18,7 @@
       <!-- <tr v-if="element.id_client === 'CL-54725'" > -->
         
       
-          <td>{{element.id_client}}</td>
+          <td>{{element.name}}</td>
           <td>{{element.date_rdv}}</td>
           <td>{{element.sujet}}</td>
           <td class="warning">{{element.creneau}}</td>
@@ -29,7 +28,7 @@
                
               </button>
               <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
-                <li><a class="dropdown-item " href="#">show more</a></li>
+                <li><a class="dropdown-item " href="#">update</a></li>
                 <li><a class="dropdown-item text-danger" href="#">Delete</a></li>
               </ul></div>
           </td>
@@ -42,10 +41,11 @@
 </template>
 
 <script>
-  import Cookies from 'js-cookie'
+  import router from '@/router'
+import Cookies from 'js-cookie'
   // let id=Cookies.get('id')
   
-  
+  // console.log(Cookies.get('name'))
 import Header from '../components/Header.vue'
 export default {
   name: 'Admin',
@@ -60,12 +60,9 @@ export default {
   },
     created() {
           if (Cookies.get('id')) {
-            console.log('ok')
+            console.log("ok")
             }else{
-              console.log("nope")
-              // router.push('sign_in')
-              // router.go('sign_in')
-              // Cookies.remove('id')
+              router.push('Sign_in')
           }
       },
   methods: {

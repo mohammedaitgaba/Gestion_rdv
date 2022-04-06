@@ -41,6 +41,27 @@ class UserController extends Controller
             }
         }
     }
+    public function getAllusers(){
+       
+            $result = $this->userModel->getAllusers(); 
+            if($result){
+                echo json_encode($result);
+            }else{
+                echo json_encode(["message" => "error"]);
+            }
+    }
+    public function delete_user(){
+        if($_SERVER['REQUEST_METHOD'] == 'POST'){
+
+            $id = json_decode(file_get_contents("php://input"), true); 
+            $result = $this->userModel->delet_user($id);
+            if($result){
+                echo json_encode(["message" => "success","yoyo"=>$id]);
+            }else{
+                echo json_encode(["message" => "failed"]);
+            }
+        } 
+    }
     // public function add_rendev(){
         
     //     if($_SERVER['REQUEST_METHOD'] == 'POST'){

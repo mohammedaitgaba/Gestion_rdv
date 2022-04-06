@@ -8,6 +8,10 @@
             </button>
             <div class="collapse navbar-collapse" id="navbarNav">
             <ul class="navbar-nav">
+                
+                <li class="nav-item">
+                <a class="nav-link active" aria-current="page" ></a> {{name}} </li>
+
                 <li class="nav-item">
                 <a class="nav-link active" aria-current="page" href="/">Profile</a>
                 </li>
@@ -38,11 +42,16 @@
 import Cookies from 'js-cookie'
 
 export default {
-    
+    data() {
+        return {
+            name:Cookies.get('name')
+        }
+    },
 methods: {
     logout(){
         Cookies.remove('id')
     }
+
 },
 
 }

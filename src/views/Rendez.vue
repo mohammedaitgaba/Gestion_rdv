@@ -14,18 +14,18 @@
           </div>
               <div class="input-box">
                 <span class="details">Date de Rendez-Vous</span>
-                <input type="date" placeholder="taper votre haja" required v-model="form.date_rdv"/>
+                <input type="date"  required v-model="form.date_rdv" v-on:change="check_reserv"/>
               </div>
-          <div class="input-box">
+          <!-- <div class="input-box">
             <span class="details" >Creneau</span>
             <select v-model="form.creneau">
-                <option value="10h à 10:30h" >10h à 10:30h</option>
+                <option value="10h à 10:30h">10h à 10:30h</option>
                 <option value="11 h à 11:30h">11 h à 11:30h</option>
                 <option value="14 h à 14:30h">14 h à 14:30h</option>
                 <option value="15 h à 15:30h">15 h à 15:30h</option>
                 <option value="16 h à 16:30h">16 h à 16:30h</option>
             </select>
-          </div> 
+          </div>  -->
           
         </div>
         <div class="button">
@@ -57,17 +57,29 @@ import Cookies from 'js-cookie'
 
   data(){
     return {
-      form:{forminfo,id_client} 
+      form:{forminfo,id_client},
+      
     }
   },
   methods: {
+    check_reserv(){
+        fetch("http://localhost/Gestion_rndv/breif/backend/Rendez/check_rdv",
+      {
+        method : "POST",
+        body : JSON.stringify(this.form.forminfo.date_rdv)
+      }).then(res => res.json()).then(out => console.log(out.data))
+    },
     add_res(){
       fetch("http://localhost/Gestion_rndv/breif/backend/Rendez/add_rendev",
       {
         method : "POST",
         body : JSON.stringify(this.form)
       }).then(res => res.json()).then(out => console.log(out.data))
-      
+      this.showAlert('DONE')
+    },
+          showAlert(param) {
+            // Use sweetalert2
+      this.$swal(param);
     }
   }
 

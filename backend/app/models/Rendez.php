@@ -30,13 +30,6 @@ class Rendez
     }
     public function getRendez()
     {
-        // $this->db->query('SELECT rdv.date_rdv,rdv.sujet,rdv.creneau,client.name FROM rdv 
-        //                     INNER JOIN client ON rdv.id_client = client.id
-        //                     WHERE id_client = :id');
-            // $this->db->bind(':id',$data);
-
-
-          
             $this->db->query('SELECT rdv.*,client.* FROM rdv 
             INNER JOIN client ON  client.id = rdv.id_client ');
         // $this->db->query('SELECT * FROM rdv');
@@ -45,6 +38,18 @@ class Rendez
         } catch (PDOException $e) {
             return $e->getMessage();
         }
+    }
+    public function Check_Rendez($data){
+        $this->db->query('SELECT date_rdv FROM rdv where date_rdv = :date');
+        $this->db->bind(':date_rdv', $data['date_rdv']);
+
+            if($this->db->rowCount() == 5){
+                return 1;
+            }else{
+                $this->db->query('SELECT creneau FROM rdv where date_rdv = :date');
+                $this->db->resultSet();
+            }
+
     }
 //     public function getRendezByUserId($userId)
 //     {

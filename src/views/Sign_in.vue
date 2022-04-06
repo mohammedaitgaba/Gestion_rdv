@@ -38,13 +38,6 @@ export default {
         }
     },
     methods: {
-        
-        // async testapi(){
-        //     let response = await fetch ('http://localhost/Gestion_rndv/breif/backend/user/check_user')
-        //     this.list = await response.json();
-        //     console.log(list)
-        // },
-
         check_user(){
             
             // check type of user
@@ -61,52 +54,30 @@ export default {
                         .then(out => {
                             let data = out.data;
                             Cookies.set('id',out.data.id)
-                            
-                            if(data) router.go('/');
+                            Cookies.set('name',out.data.name)
+                            // console.log(data)
+                            if(data) 
+                            router.go('/');
                         })
                     }})
-
-                // .then(out => {const x = out})
-                // .then(document.cookie = 'name= med ')
-
                 
             }else{
-                fetch("http://localhost/Gestion_rndv/breif/backend/Admin/check_admin", {
+                fetch("http://localhost/Gestion_rndv/breif/backend/Admin/check_admin",{
                     method: 'POST',
                     body: JSON.stringify(this.form)
-                }).then(res => {
-                    if(res.status == 200)
-                    {res.json()
-                        .then(out => {
-                            let data = out.data;
-                           Cookies.set('id',out.data.id)
-                            if(data) router.push('admin');
+                }).then(res => {res.json()
+                        .then(out => {let data = out.data;
+                            console.log(data)
+                        //    Cookies.set('id',out.data.id)
+                        //    Cookies.set('name',out.data.name)
+                            if(data) 
+                            router.push('admin');
                         })
-                    }})
-            
+                    })
             }
 
-        },
-        
-    //     setCookie(name,value,days) {
-    //         var expires = "";
-    //         if (days) {
-    //         var date = new Date();
-    //         date.setTime(date.getTime() + (days*24*60*60*1000));
-    //         expires = "; expires=" + date.toUTCString();
-    // }
-    // document.cookie = name + "=" + (value || "")  + expires + "; path=/";
-// }
-        
+        }, 
     },
-   
-    // created() {
-        //     alert("mmmmmm")
-    // },
-    // beforeCreate() {
-    //     alert("wwwww")
-    // },
-
 }
 </script>
 

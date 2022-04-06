@@ -5,10 +5,10 @@
             
             <form class="login_form" @submit.prevent="creat_acc">
                 <label class="form_header">Please fill the info below</label>
-                <input class="filler" type="text" placeholder="full name" v-model="form.full_name" />
-                <input class="filler p-3" type="date" placeholder="birthday" v-model="form.birthday" />
-                <input class="filler" type="text" placeholder="CIN" v-model="form.CIN" />
-                <input class="filler" type="text" placeholder="Job" v-model="form.Job" />
+                <input class="filler" type="text" placeholder="full name" v-model="form.full_name" required />
+                <input class="filler p-3" type="date" placeholder="birthday" v-model="form.birthday" required />
+                <input class="filler" type="text" placeholder="CIN" v-model="form.CIN" required />
+                <input class="filler" type="text" placeholder="Job" v-model="form.Job" required />
 
                 <button type="submit">Sign up</button>
                 <a href="./Sign_in">Already created account!</a>
@@ -45,7 +45,7 @@ export default {
             router.push('sign_in')
             this.form = initialFormState;
         },
-        showAlert(param) {
+    showAlert(param) {
             // Use sweetalert2
       this.$swal(param);
     },

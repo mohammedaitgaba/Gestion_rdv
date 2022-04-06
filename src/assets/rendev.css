@@ -1,6 +1,8 @@
 .recent-orders{
     margin-top: 2rem;
-    max-width: 90%;    margin-left: 5%;
+    max-width: 90%;    
+    margin-left: 5%;
+    margin-bottom: 130px;
   
   }
   .recent-orders h2{
@@ -36,4 +38,7 @@
       display: block;
       margin: 1rem auto;
       color:#7380ec;
+    }
+    .dropdown-item{
+      cursor: pointer;
     }
