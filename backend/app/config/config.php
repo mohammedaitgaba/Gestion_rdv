@@ -3,7 +3,7 @@
     define('DB_HOST', 'localhost'); //Add your db host
     define('DB_USER', 'root'); // Add your DB root
     define('DB_PASS', ''); //Add your DB pass
-    define('DB_NAME', 'rendez'); //Add your DB Name
+    define('DB_NAME', 'architecte_cabinet'); //Add your DB Name
 
     //APPROOT
     define('APPROOT', dirname(dirname(__FILE__)));

@@ -62,6 +62,32 @@ class UserController extends Controller
             }
         } 
     }
+    public function updateClient($data)
+    {
+
+
+        $this->db->query("UPDATE client SET name=:name, date_nais=:date_nais, profession=:profession, CIN=:CIN WHERE id=:id");
+
+        //Bind values
+
+        $this->db->bind(':name', $data['name']);
+        $this->db->bind(':date_nais', $data['date_nais']);
+        $this->db->bind(':profession', $data['profession']);
+        $this->db->bind(':CIN', $data['CIN']);
+        $this->db->bind(':id', $data['id']);
+
+        //Execute function
+        try {
+            $this->db->execute();
+            return $data = true;
+        } catch (PDOException $e) {
+            return $e->getMessage();
+        }
+    }
+
+
+
+
     // public function add_rendev(){
         
     //     if($_SERVER['REQUEST_METHOD'] == 'POST'){

@@ -2,8 +2,8 @@
     class Database {
         private $dbHost = DB_HOST;
         private $dbUser = DB_USER;
-        private $dbPass = '';
-        private $dbName = 'architecte_cabinet';
+        private $dbPass = DB_PASS;
+        private $dbName = DB_NAME;
 
         private $statement;
         private $dbHandler;

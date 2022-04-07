@@ -28,6 +28,17 @@ class User
             return $e->getMessage();
         }
     }
+    public function update_user(){
+        if($_SERVER['REQUEST_METHOD'] == 'POST'){
+            $data = json_decode(file_get_contents("php://input"), true);
+            $result = $this->userModel->updateClient($data);
+            if($result){
+                echo json_encode(["message" => "secces update"]);
+            }else{
+                echo json_encode(["message" => "false"]);
+            }
+        }
+    }
 
     // public function validat_user($data){
 
