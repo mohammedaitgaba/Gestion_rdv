@@ -16,8 +16,31 @@ class User
             return $e->getMessage();
         }
     }
+    public function updateInfo($data)
+    {
+        $this->db->query("UPDATE client SET 
+        
+        name=:name,
+        date_nais = :date_nais,
+        CIN =:CIN,
+        profession = :profession WHERE id=:id");
+        // Bind value
+        // 
+	
+        $this->db->bind(':name', $data['name']);
+        $this->db->bind(':date_nais', $data['date_nais']);
+        $this->db->bind(':CIN', $data['CIN']);
+        $this->db->bind(':profession', $data['profession']);
+        $this->db->bind(':id', $data['id']);
+
+        try{
+            return $this->db->execute();
+        }catch(PDOException $e){
+            return $e->getMessage();
+        }
+    }
     public function newClient($data)
-     {
+    {
         $this->db->query('INSERT INTO client (id,name, date_nais, CIN,profession) VALUES(:id,:name, :date_nais, :CIN, :profession)');
 
         //Bind values

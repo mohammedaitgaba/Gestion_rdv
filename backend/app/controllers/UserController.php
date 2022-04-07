@@ -20,6 +20,21 @@ class UserController extends Controller
             }
         }
     }
+
+    public function updateinfo(){
+        if($_SERVER['REQUEST_METHOD'] == 'POST'){
+            $data = json_decode(file_get_contents("php://input"),true);
+            
+            if($this->userModel->updateInfo($data)){
+                echo json_encode(array(
+                    "message"=>"done"
+                ));
+            }else{
+                echo json_encode(["message" => "error"]);
+            }
+            
+        }
+    }
     public function add_user(){
 
         if($_SERVER['REQUEST_METHOD'] == 'POST')
@@ -72,28 +87,28 @@ class UserController extends Controller
             }
         } 
     }
-    public function updateClient($data)
-    {
+    // public function updateClient($data)
+    // {
 
 
-        $this->db->query("UPDATE client SET name=:name, date_nais=:date_nais, profession=:profession, CIN=:CIN WHERE id=:id");
+    //     $this->db->query("UPDATE client SET name=':name', date_nais=':date_nais', profession=':profession', CIN=':CIN' WHERE id=:id");
 
-        //Bind values
+    //     //Bind values
 
-        $this->db->bind(':name', $data['name']);
-        $this->db->bind(':date_nais', $data['date_nais']);
-        $this->db->bind(':profession', $data['profession']);
-        $this->db->bind(':CIN', $data['CIN']);
-        $this->db->bind(':id', $data['id']);
+    //     $this->db->bind(':name', $data['name']);
+    //     $this->db->bind(':date_nais', $data['date_nais']);
+    //     $this->db->bind(':profession', $data['profession']);
+    //     $this->db->bind(':CIN', $data['CIN']);
+    //     $this->db->bind(':id', $data['id']);
 
-        //Execute function
-        try {
-            $this->db->execute();
-            return $data = true;
-        } catch (PDOException $e) {
-            return $e->getMessage();
-        }
-    }
+    //     //Execute function
+    //     try {
+    //         $this->db->execute();
+    //         return $data = true;
+    //     } catch (PDOException $e) {
+    //         return $e->getMessage();
+    //     }
+    // }
 
 
 
