@@ -45,7 +45,45 @@ class RendezController extends Controller
             $data = json_decode(file_get_contents("php://input"), true);
             $result = $this->RendezModel->Check_Rendez($data);
             
+            $date=[];
+            $date[0] = "10h à 10:30h";
+            $date[1] = "11 h à 11:30h";
+            $date[2] = "14 h à 14:30h";
+            $date[3] = "15 h à 15:30h";
+            $date[4] = "16 h à 16:30h";
+            foreach($result as $res){
+                if ($res['creneau'] == "14 h à 14:30h") {
+                    unset($date[2]);
+                  }
+                if ($res['creneau'] == "10h à 10:30h") {
+                    unset($date[0]);
+                  }
+                if ($res['creneau'] == "11 h à 11:30h") {
+                    unset($date[1]);
+                  }
+              
+                if ($res['creneau'] == "15 h à 15:30h") {
+                    unset($date[3]);
+                  }
+                if ($res['creneau'] == "16 h à 16:30h") {
+                    unset($date[4]);
+                  }
+            }
+                echo json_encode($date);
     }
     }
+    public function delete_rdv(){
+        if($_SERVER['REQUEST_METHOD'] == 'POST'){
+
+            $id = json_decode(file_get_contents("php://input"), true); 
+            $result = $this->RendezModel->delet_rendev($id);
+            if($result){
+                echo json_encode(["message" => "success","yoyo"=>$id]);
+            }else{
+                echo json_encode(["message" => "failed"]);
+            }
+        } 
+    }
+    
 
 }

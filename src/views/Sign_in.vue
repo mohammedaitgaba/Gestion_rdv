@@ -28,9 +28,10 @@ const formState = {
 export default {
     name : "Sign_in",
     data() {
-        return {form :formState}
+        return {form:formState}
     },
     created() {
+        
         if (Cookies.get('id')) {
             router.push('/')
         }else{
@@ -65,15 +66,29 @@ export default {
                 fetch("http://localhost/Gestion_rndv/breif/backend/Admin/check_admin",{
                     method: 'POST',
                     body: JSON.stringify(this.form)
-                }).then(res => {res.json()
-                        .then(out => {let data = out.data;
-                            console.log(data)
-                        //    Cookies.set('id',out.data.id)
-                        //    Cookies.set('name',out.data.name)
+
+                }).then(res => {
+                    if(res.status == 200)
+                    {res.json()
+                        .then(out => {
+                            let data = out.data;
+                            Cookies.set('id',out.data.id)
+                            Cookies.set('name',out.data.name)
+                            console.log(out)
                             if(data) 
                             router.push('admin');
                         })
-                    })
+                    }})
+                // .then(res => res.json())
+                // .then(out  => console.log(out))
+                
+                        // .then(out => {let data = out.data;console.log(data)
+                        //    Cookies.set('id',out.data.id)
+                        //    Cookies.set('name',out.data.name)
+                            // if(data) 
+                            // router.push('admin');
+                        // })
+                    
             }
 
         }, 

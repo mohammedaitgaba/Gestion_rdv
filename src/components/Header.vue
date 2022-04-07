@@ -7,10 +7,11 @@
             <span class="navbar-toggler-icon"></span>
             </button>
             <div class="collapse navbar-collapse" id="navbarNav">
+                
             <ul class="navbar-nav">
                 
                 <li class="nav-item">
-                <a class="nav-link active" aria-current="page" ></a> {{name}} </li>
+                <a class="nav-link active" id="logout" aria-current="page" >{{name}}</a>  </li>
 
                 <li class="nav-item">
                 <a class="nav-link active" aria-current="page" href="/">Profile</a>
@@ -19,7 +20,7 @@
                 <a class="nav-link" href="/Rendez">Reserve</a>
                 </li>   
                 <li class="nav-item">
-                <a class="nav-link" v-on:click="logout" href="/Sign_in">Log out</a>
+                <a class="nav-link"  v-on:click="logout" href="/Sign_in">Log out</a>
                 </li>
             </ul>
             </div>
@@ -35,6 +36,10 @@
 }
 .container-fluid{
     justify-content: flex-end;
+}
+#logout{
+    
+    font-weight: bold;
 }
 </style>
 <script>

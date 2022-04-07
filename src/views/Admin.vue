@@ -29,7 +29,7 @@
                
               </button>
               <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
-                <li><a class="dropdown-item " href="#"> show more</a></li>
+                <li><a class="dropdown-item " href="#"> update</a></li>
                 <li><a class="dropdown-item text-danger" v-on:click="delete_user(element.id)">Delete</a></li>
                 
               </ul></div>
@@ -57,7 +57,6 @@
     <tbody v-for="element in rendevs">
 
       <tr>
-          
           <td>{{element.name}}</td>
           <td>{{element.date_rdv}}</td>
           <td>{{element.sujet}}</td>
@@ -68,8 +67,8 @@
                
               </button>
               <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
-                <li><a class="dropdown-item " href="#">show more</a></li>
-                <li><a class="dropdown-item text-danger" href="#">Delete</a></li>
+                <!-- <li><a class="dropdown-item " href="#">show more</a></li> -->
+                <li><a class="dropdown-item text-danger" href="#" v-on:click="delete_rdv(element.id_rdv)" >Delete</a></li>
               </ul></div>
           </td>
       </tr> 
@@ -94,33 +93,47 @@ let id_check =  Cookies.get('id')
 //     id:""
 // }
 export default {
+  
   name: 'Admin',
   components: {
     Header
   },
   data(){
     return {
-    rendevs:[],
+      rendevs:[],
     users:[],
     // id:"",
   //  form:{formState}
     }
   },
   methods: {
-        delete_user(id){
-
+    
+    delete_user(id){
+      
       console.log(id)
          fetch("http://localhost/Gestion_rndv/breif/backend/user/delete_user",
       {
-      method : "POST",
+        method : "POST",
       body : JSON.stringify(id)
       }).then(res => res.json()).then(out => console.log(out))
-
       router.go('admin')
+
+      },
+    delete_rdv(id_rdv){
+      
+      console.log(id_rdv)
+         fetch("http://localhost/Gestion_rndv/breif/backend/Rendez/delete_rdv",
+      {
+        method : "POST",
+      body : JSON.stringify(id_rdv)
+      }).then(res => res.json()).then(out => console.log(out))
+      router.go('admin')
+      
       },
     async get_rdv(){
       let respons =await fetch("http://localhost/Gestion_rndv/breif/backend/Rendez/getAllRendez")
         
+      
         this.rendevs=await respons.json() 
         
     },
@@ -131,16 +144,16 @@ export default {
       
     },
     
-    //  check_admin(){
-    //   console.log(id_check);
-    //   if(id_check == "AD_1234"){
+     check_admin(){
+      console.log(id_check);
+      if(id_check == "AD_1234"){
 
-    //     console.log("welcome")
-    //     }else{
-    //     console.log(id_check)
-    //     router.push('Sign_up')
-    //   }
-    // }
+        console.log("welcome")
+        }else{
+        console.log(id_check)
+        router.push('Sign_up')
+      }
+    }
      },
        
 
@@ -151,7 +164,7 @@ export default {
     mounted() {
       this.get_rdv();
       this.get_users();
-        // this.check_admin();
+      this.check_admin();
         // delete_user()
       },
    
