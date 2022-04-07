@@ -56,6 +56,10 @@
             $this->execute();
             return $this->statement->fetchAll(PDO::FETCH_OBJ);
         }
+        public function resultass() {
+            $this->execute();
+            return $this->statement->fetchAll(PDO::FETCH_ASSOC);
+        }
 
         //Return a specific row as an object
         public function single() {

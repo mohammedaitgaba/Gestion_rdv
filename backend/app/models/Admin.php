@@ -10,13 +10,8 @@ class Admin
 
     public function checkAdminByID($id)
     {
-        $this->db->query("SELECT * FROM admin WHERE id = :id ");
-
-        //Bind values
-        $this->db->bind(':id', $id);
-        
-
-        //Execute function
+        $this->db->query("SELECT * FROM admin WHERE id = :id");
+        $this->db->bind(':id',$id);
         try {
             return $this->db->single();
         } catch (PDOException $e) {

@@ -40,16 +40,20 @@ class Rendez
         }
     }
     public function Check_Rendez($data){
-        $this->db->query('SELECT date_rdv FROM rdv where date_rdv = :date');
-        $this->db->bind(':date_rdv', $data['date_rdv']);
 
-            if($this->db->rowCount() == 5){
-                return 1;
-            }else{
-                $this->db->query('SELECT creneau FROM rdv where date_rdv = :date');
-                $this->db->resultSet();
-            }
+                $this->db->query('SELECT creneau FROM rdv where date_rdv = :date_rdv');
+                $this->db->bind(':date_rdv',$data);
+                return $this->db->resultass();
 
+    }
+    public function delet_rendev($data){
+        $this->db->query('DELETE  FROM rdv WHERE id_rdv = :id');
+        $this->db->bind(":id", $data);
+        try {
+            return $this->db->execute();
+        } catch (PDOException $e) {
+            return $e->getMessage();
+        }
     }
 //     public function getRendezByUserId($userId)
 //     {
