@@ -7,6 +7,15 @@ class User
     {
         $this->db = new Database;
     }
+    public function getInfor($id){
+        $this->db->query('SELECT * FROM  client WHERE id = :id');
+        $this->db->bind(":id",$id);
+        try{
+            return $this->db->single();
+        }catch(PDOException $e){
+            return $e->getMessage();
+        }
+    }
     public function newClient($data)
      {
         $this->db->query('INSERT INTO client (id,name, date_nais, CIN,profession) VALUES(:id,:name, :date_nais, :CIN, :profession)');

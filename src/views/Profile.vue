@@ -1,5 +1,23 @@
 <template>
 <Header/>
+<!-- <p>{{info}}</p> -->
+  <div>
+  <div>Name: {{info.name}}</div>
+  <div>Date Naissance: {{info.CIN}}</div>
+  <div>Profession:{{info.profession}} </div>
+
+  <input type="submit" value="EDIT" >
+  </div>
+  <form class="form" @submit.prevent="">
+    <div>
+    name:<input type="text" v-model="form.name"></div>
+    <p> {{form.name}}</p>
+   <div>
+    CIN:<input type="text" v-model="form.CIN"></div> 
+     <div>
+    Profession:<input type="text" v-model="form.profession"></div>
+
+  </form>
     <div class="recent-orders">
   <h2>Appointment's table</h2>
   <table>
@@ -13,7 +31,7 @@
 
       </tr>
     </thead >
-    <tbody v-for="element in rendevs">
+    <tbody v-for="element in rendevs" :key="element">
       <tr v-if="element.id_client === id"  >
       <!-- <tr v-if="element.id_client === 'CL-54725'" > -->
         
@@ -47,6 +65,12 @@ import Cookies from 'js-cookie'
   
   // console.log(Cookies.get('name'))
 import Header from '../components/Header.vue'
+ 
+  const forminfo = {
+    name: "",
+    CIN:"",
+    profession: "",
+  }
 export default {
   name: 'Admin',
   components: {
@@ -55,12 +79,14 @@ export default {
   data(){
     return {
       id:Cookies.get('id'),
-      rendevs:[]
+      rendevs:[],
+      info: [],
+      form:{forminfo}
     }
   },
     created() {
           if (Cookies.get('id')) {
-            console.log("ok")
+            console.log("you'r in")
             }else{
               router.push('Sign_in')
           }
@@ -74,7 +100,22 @@ export default {
     //   }).then(res => res.json()).then(out => console.log(out.data))
       
     // },
-    
+    getInfo(){
+      const id = Cookies.get('id');
+       fetch("http://localhost/Gestion_rndv/breif/backend/user/getInfo",
+      {
+        method: "POST",
+        body: JSON.stringify(id)
+      }).then(res => res.json()).then(out => {this.info = out.data ; console.log(this.info);})},
+      
+    updateInfo(){
+      fetch("http://localhost/Gestion_rndv/breif/backend/user/updateinfo",
+      {
+        method: "POST",
+        body: JSON.stringify()
+      }).then(res=> res.json()).then(out=>console.log(out))
+    },
+
     async get_rdv(){
         let respons =await fetch("http://localhost/Gestion_rndv/breif/backend/Rendez/getAllRendez")
         this.rendevs=await respons.json() 
@@ -87,8 +128,11 @@ export default {
   mounted() {
     // console.log(this.rendevs.id_client); 
     
+      this.getInfo();
       this.get_rdv();
       // this.getRdvById()
+      // console.log(form.name);
+      
     }
   
 }

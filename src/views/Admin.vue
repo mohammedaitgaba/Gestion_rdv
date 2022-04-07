@@ -14,7 +14,7 @@
 
       </tr>
     </thead>
-    <tbody v-for="element in users">
+    <tbody v-for="element in users" :key="element">
 
       <tr>
         
@@ -54,7 +54,7 @@
 
       </tr>
     </thead>
-    <tbody v-for="element in rendevs">
+    <tbody v-for="element in rendevs" :key="element">
 
       <tr>
           <td>{{element.name}}</td>

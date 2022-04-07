@@ -9,7 +9,17 @@ class UserController extends Controller
     {
         $this->userModel = $this->model('User');
     }
-    
+    public function getInfo(){
+        if($_SERVER['REQUEST_METHOD'] == 'POST'){
+            $data = json_decode(file_get_contents("php://input"),true);
+            $result = $this->userModel->getInfor($data);
+            if($result){
+                echo json_encode(["message" => "success","data"=> $result]);
+            }else{
+                echo json_encode(["message" => "error d'affichage"]);
+            }
+        }
+    }
     public function add_user(){
 
         if($_SERVER['REQUEST_METHOD'] == 'POST')
@@ -56,7 +66,7 @@ class UserController extends Controller
             $id = json_decode(file_get_contents("php://input"), true); 
             $result = $this->userModel->delet_user($id);
             if($result){
-                echo json_encode(["message" => "success","yoyo"=>$id]);
+                echo json_encode(["message" => "success","ID"=>$id]);
             }else{
                 echo json_encode(["message" => "failed"]);
             }
