@@ -29,18 +29,7 @@ class User
         }
     }
 
-    // public function validat_user($data){
-
-    //     $this ->db->query('SELECT * FROM client WHERE id = :id ');
-    //     $this->db->bind(":id", $data["id"]);
-        
-    //     try {
-    //         // fetch
-    //         return $this->db->resultSet() ? $data : false;
-    //     } catch (PDOException $e) {
-    //         return $e->getMessage();
-    //     }
-    // }
+    
 
     public function getById($id)
     {
